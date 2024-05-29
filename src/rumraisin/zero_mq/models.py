@@ -8,7 +8,7 @@ from rumraisin.serialization.image import encode_jpeg, decode
 
 class Request(BaseModel):
     image: Annotated[Image, PlainValidator(decode)]
-    intensity: Annotated[int, Field(ge=0, le=150, default=100)]
+    intensity: Annotated[float, Field(ge=0, le=1, default=1)]
 
     class Config:
         # so pydantic won't panic about Image

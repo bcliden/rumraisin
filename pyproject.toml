@@ -9,11 +9,21 @@ authors = [{ name = "Benjamin Liden", email = "lidenb@oregonstate.edu" }]
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">3.10"
-dependencies = ["pillow", "pydantic >= 2", "pydantic-settings >= 2", "zmq"]
+dependencies = [
+    "pillow",
+    "pillow-lut >= 1",
+    "pydantic >= 2",
+    "pydantic-settings >= 2",
+    "zmq",
+]
 
 [project.urls]
 Homepage = "https://github.com/bcliden/rumraisin"
 Issues = "https://github.com/bcliden/rumraisin/issues"
+
+
+[tool.setuptools.package-data]
+"rumraisin.lut" = ["*.cube"]
 
 [project.scripts]
 "rumraisin.zmq" = "rumraisin.zero_mq.entry:main"

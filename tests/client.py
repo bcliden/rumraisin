@@ -44,11 +44,11 @@ def main() -> None:
         data = f.read()
         b64data = b64encode(data).decode("ascii")
         print(f"sending {str(b64data[0:10])}... image")
-        socket.send_json({"image": b64data})
+        socket.send_json({"image": b64data, "intensity": 1})
 
     response: Any = socket.recv_json()
 
-    print("recieved response: ", response)
+    # print("recieved response: ", response)
 
     if response["status"] == "ok":
         img = response["image"]
@@ -61,6 +61,8 @@ def main() -> None:
         b = io.BytesIO(img_bytes)
         i: Image = im.open(b)
         i.show()
+    elif response["status"] == "error":
+        print(response)
 
 
 if __name__ == "__main__":
