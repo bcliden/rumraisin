@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rumraisin"
+version = "0.0.1-beta"
+authors = [{ name = "Benjamin Liden", email = "lidenb@oregonstate.edu" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">3.10"
+dependencies = ["pillow", "pydantic >= 2", "pydantic-settings >= 2", "zmq"]
+
+[project.urls]
+Homepage = "https://github.com/bcliden/rumraisin"
+Issues = "https://github.com/bcliden/rumraisin/issues"
+
+[project.scripts]
+"rumraisin.zmq" = "rumraisin.zero_mq.entry:main"
+"rumraisin.cli" = "rumraisin.cli.entry:main"
+
+[project.gui-scripts]
+# do we have any of these?
