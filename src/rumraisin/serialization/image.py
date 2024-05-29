@@ -28,6 +28,7 @@ def encode(image: Image, format: str = "jpeg"):
 
 def encode_jpeg(image: Image) -> str:
     img_bytes = io.BytesIO()
+    image = image.convert("RGB")  # drop the alpha channel
     image.save(img_bytes, format="jpeg", **jpeg_options)
     return b64encode(img_bytes.getvalue()).decode("utf-8")
 
