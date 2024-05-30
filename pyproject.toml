@@ -11,7 +11,7 @@ license = { file = "LICENSE" }
 requires-python = ">3.10"
 dependencies = [
     "pillow",
-    "pillow-lut >= 1",
+    "pillow_lut >= 1",
     "pydantic >= 2",
     "pydantic-settings >= 2",
     "zmq",
@@ -20,7 +20,6 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/bcliden/rumraisin"
 Issues = "https://github.com/bcliden/rumraisin/issues"
-
 
 [tool.setuptools.package-data]
 "rumraisin.lut" = ["*.cube"]
@@ -31,3 +30,7 @@ Issues = "https://github.com/bcliden/rumraisin/issues"
 
 [project.gui-scripts]
 # do we have any of these?
+
+[[tool.mypy.overrides]]
+module = "pillow_lut"
+ignore_missing_imports = true

@@ -1,16 +1,15 @@
 import logging
 import sys
-
 from logging import StreamHandler
 from logging.handlers import RotatingFileHandler
-from signal import signal, SIGINT, SIG_DFL
+from signal import SIG_DFL, SIGINT, signal
 from typing import Optional
 
 import zmq
 
+from rumraisin.image.filter import antique_filter
 from rumraisin.zero_mq.config import Config
-from rumraisin.image.filter import antique
-from rumraisin.zero_mq.models import Request, SuccessReply, ErrorReply
+from rumraisin.zero_mq.models import ErrorReply, Request, SuccessReply
 
 logger = logging.getLogger(__name__)
 cfg = Config()
@@ -70,7 +69,7 @@ def main() -> None:
             logger.debug("successfully parsed json: %s", request)
 
             # apply the filter
-            image = antique(request.image, intensity=request.intensity)
+            image = antique_filter(request.image, request.intensity)
 
             reply = SuccessReply(image=image)
 

@@ -1,15 +1,12 @@
 import io
-from typing import Any
-import zmq
+from base64 import b64decode, b64encode
 from pathlib import Path
+from signal import SIG_DFL, SIGINT, signal
+from typing import Any
 
+import zmq
 from PIL import Image as im
 from PIL.Image import Image
-
-from signal import signal, SIGINT, SIG_DFL
-
-from base64 import b64decode, b64encode
-
 
 """
 Tests to write...
@@ -54,9 +51,9 @@ def main() -> None:
         img = response["image"]
         img_bytes = b64decode(img)
 
-        # parent_folder = Path(__file__).parent.resolve()
-        # with open(parent_folder / "last_recieved_test_image.png", "wb") as f:
-        #     f.write(img_bytes)
+        parent_folder = Path(__file__).parent.resolve()
+        with open(parent_folder / "last_recieved_test_image.png", "wb") as f:
+            f.write(img_bytes)
 
         b = io.BytesIO(img_bytes)
         i: Image = im.open(b)

@@ -1,11 +1,12 @@
 from random import choice
-from typing import Callable, Optional, final, TypedDict, Literal, Type
+from typing import Callable, Optional
+
+from PIL import ImageFont as imf
 from PIL.Image import Image
 from PIL.ImageDraw import ImageDraw
 from PIL.ImageFilter import Color3DLUT
-from PIL import ImageFont as imf
-from rumraisin.lut import get_lut
 from pillow_lut import amplify_lut
+from rumraisin.lut import get_lut
 
 picks: dict[str, Optional[Color3DLUT]] = {
     "Old": get_lut("Faded"),  # or Tweed or Pasadena?
@@ -14,6 +15,16 @@ picks: dict[str, Optional[Color3DLUT]] = {
 }
 
 font = imf.load_default(60)
+
+
+def antique_filter(image: Image, intensity: float) -> Image:
+    """
+    The image filtering for the "Antique" look
+    """
+    lut = get_lut("Faded")
+    amplified = amplify_lut(lut, intensity)
+    image = image.filter(amplified)
+    return image
 
 
 def process_lut(name: str) -> Callable[[Image, float], Image]:
@@ -26,8 +37,14 @@ def process_lut(name: str) -> Callable[[Image, float], Image]:
         amplified = amplify_lut(lut, intensity)
         image = image.filter(amplified)
         draw = ImageDraw(image)
-        # TODO/bcl: not working rn
-        draw.text(xy=(10, 10), text=name, font=font, fill="white", stroke_fill="black")
+        draw.text(
+            xy=(10, 10),
+            text=name,
+            font=font,
+            fill="white",
+            stroke_width=5,
+            stroke_fill="black",
+        )
         return image
 
     return process_image
