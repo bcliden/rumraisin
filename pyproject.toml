@@ -26,10 +26,7 @@ Issues = "https://github.com/bcliden/rumraisin/issues"
 
 [project.scripts]
 "rumraisin.zmq" = "rumraisin.zero_mq.entry:main"
-"rumraisin.cli" = "rumraisin.cli.entry:main"
-
-[project.gui-scripts]
-# do we have any of these?
+# "rumraisin.cli" = "rumraisin.cli.entry:main" # enable when CLI is ready
 
 [[tool.mypy.overrides]]
 module = "pillow_lut"

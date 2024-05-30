@@ -40,7 +40,7 @@ def main() -> None:
     with open(test_image, "rb") as f:
         data = f.read()
         b64data = b64encode(data).decode("ascii")
-        print(f"sending {str(b64data[0:10])}... image")
+        print(f"sending image starting with {str(b64data[0:10])}... bytes")
         socket.send_json({"image": b64data, "intensity": 1})
 
     response: Any = socket.recv_json()
